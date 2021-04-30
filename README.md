@@ -29,7 +29,7 @@ CREATE TABLE POSTS (
 From a Developer perspective, they can upload a post to the posts table while notifying people with the same address about that post:
 
 
-First, lets allow for a user to input they postal code and email:
+First, lets allow for a user to input their postal code and email:
 
 <img src="images/find-info.png"  title="Subscribe">
 
