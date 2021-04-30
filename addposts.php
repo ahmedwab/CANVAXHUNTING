@@ -1,6 +1,12 @@
 
 <html>
 <body>
+<head>
+
+<head>
+<title> Canada Vaccine Search</title>
+<link rel="stylesheet" href="styles.css">
+</head>
 
 
 <h1> Developer's side</h1><br>
@@ -87,9 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </head>
         <body>'
         .$pname.
-        //href should be replace with a link to the unsubscribe page
-        '<a href="https://www.website.com/unsubscribe.php?email="$email"">Want to opt out of emails? Click here </a>
-        </body>
+        //href should be replaced with a link to the unsubscribe page
+        '</body>
         </html>
         ';
 
@@ -103,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // More headers
     // Sender should probably be a no-reply@something.com
-    $headers .= 'From: <contact@support.com>' . "\r\n";
+    $headers .= 'From: <no-reply@canvaxsearch.com>' . "\r\n";
     
     $wasMailed=mail($to,$subject,$message,$headers);
     if( $wasMailed == true ) {
