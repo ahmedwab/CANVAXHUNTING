@@ -1,7 +1,9 @@
 # CANVAXHUNTING
 Notification System for Canadian vaccines using postal code as input. Moreover, allowing users to find relevant vaccine posts that pertain to their own postal code.
 
+## Front End
 
+No front end design was developed.
 ## Database (SQL)
 
 These are the two required database tables for the notification system.
