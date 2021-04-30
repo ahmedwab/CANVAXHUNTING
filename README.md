@@ -57,7 +57,9 @@ An email will be sent to the user:
 
 Another functionality that could happen is the user searching for relevant posts using the following:
 
-<img src="images/get-post.png"  title="ALLPOSTS">
+<img src="images/get-post1.png"  title="ALLPOSTS">
+
+<img src="images/get-post2.png"  title="ALLPOSTS">
 
 
 
