@@ -5,6 +5,10 @@ Notification System for Canadian vaccines using postal code as input. Moreover, 
 
 Website can be found here:
 http://canvaxsearch.dreamhosters.com
+
+Developer Page:
+
+http://canvaxsearch.dreamhosters.com/addposts.php
 ## Front End
 
 No front end design was developed.
