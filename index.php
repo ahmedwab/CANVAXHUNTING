@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 <title> Canada Vaccine Search</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
-
+<div id="top">
+<div id="top-left">
 <img src="images/Maple_Leaf.svg" alt="Canada" id="mapleLeaf">
 <h1 id="title"> Canada Vaccine Search</h1>
+
+<div id="search-space">
     <form action="" method="post">    
-
-
-
-     <label for="province">Please choose a province or territory:</label>
+      <div class="search-parameter">
+     <h4>Province or territory</h4>
     
         <select id="province" name="province">
             <option value="Alberta">Alberta</option>
@@ -33,23 +34,24 @@
     
     
         </select>
-        <br>
-        Postal Code: <input type="text" name="pcode" maxlength="3" placeholder="Ex: M1W">
-        <br>
-      <input type="submit" name="submitpost" id='submit'>
-    </form>
+      </div>
 
-    <h3 align='center'> Want to receive notifications? </h3>
-    <form action="" method="post"> 
-        Email: <input type="text" name="email" placeholder='someone@example.com'>
-        Postal Code: <input type="text" name="pcode" maxlength="3" placeholder= 'M1W'>
-     <input type="submit" name='submitemail' id='submit'>
-</form>
+        <div class="search-parameter">
+        <h4>Postal Code </h4><br><input type="text" name="pcode" maxlength="3" placeholder="Ex: M1W">
+        </div>
+        <button type="submit" name="submitpost" id="submit"><i class="fa fa-search"></i> Search</button>
+      
+    </form>
+</div>
+</div>
+</div>
+<div id="top-right">
+<img src="images/Maple_Leaf.svg" alt="Canada" id="mapleLeaf-right">
+</div>
 
 
     
-</body>
-</html>
+
 
 
 
@@ -57,10 +59,10 @@
 <?php
 
 //database information
-$servername = "";
-$username = "";
-$password = "";
-$databaseName = "";
+$servername = "mysql.canvaxsearch.dreamhosters.com";
+$username = "ahmedwal";
+$password = "discussion1407";
+$databaseName = "canvaxsearch";
 
  $conn = new mysqli($servername,$username,$password,$databaseName);
 
@@ -124,6 +126,24 @@ if (isset($_POST['submitpost'])) {
 
 
 ?>
+
+
+<div id="notification-space">
+      <div id="notification-left">
+      <h3> Notify me when a vaccine is available </h3>
+      </div>
+      <div id="notification-right">
+      <form action="" method="post"> 
+        <div class="notification-parameter">
+        Email: <input type="text" name="email" placeholder='someone@example.com'>
+        </div>
+        <div class="notification-parameter">
+        Postal Code: <input type="text" name="pcode" maxlength="3" placeholder= 'M1W'>
+        </div>
+     <input type="submit" name='submitemail' id='submit'>
+    </form>
+    </div>
+</div>
 
 </body>
 </html>
