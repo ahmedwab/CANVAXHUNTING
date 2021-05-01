@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canada Vaccine Search</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <section class="section-1">
+      <div class="container">
+        <img
+          src="./assets/Logo.png"
+          draggable="false"
+          alt="maple leaf"
+          id="logo"
+        />
+        <h1>Canada Vaccine Search</h1>
+        <form class="form-control form-control-row"  action="" method="post" name='search-form'>
+          <div class="input-field-container">
+            <h5 class="title">Province or territory</h5>
+            <div class="dropdown input-container-input">
+              <div class="dropdown-select">
+                <span class="select" id="province-label" >Select Provices or Territory</span
+                >
+                <i class="fa fa-caret-down icon"></i>
+              </div>
+              <div class="dropdown-list">
+                <div class="dropdown-list__item">Alberta</div>
+                <div class="dropdown-list__item">British Columbia</div>
+                <div class="dropdown-list__item">New Brunswick</div>
+                <div class="dropdown-list__item">Newfoundland and Labrador</div>
+                <div class="dropdown-list__item">Nova Scotia</div>
+                <div class="dropdown-list__item">Ontario</div>
+                <div class="dropdown-list__item">Prince Edward Island</div>
+                <div class="dropdown-list__item">Quebec</div>
+                <div class="dropdown-list__item">Saskatchewan</div>
+                <div class="dropdown-list__item">Northwest Territories</div>
+                <div class="dropdown-list__item">Nunavut</div>
+                <div class="dropdown-list__item">Yukon</div>
+              </div>
+            </div>
+            <input type="hidden" name="province" id="province">
+          </div>
+          <div class="input-field-container">
+            <h5 class="title">Postal Code</h5>
+            <div class="input-container-input">
+              <input type="text" id="postalCode" maxlength="3" name="pcode" placeholder="Type your postal code"/>
+            </div>
+          </div>
+          <div class="input-field-container">
+            <div class="btn" onClick="document.forms['search-form'].submit();">
+              <i class="fa fa-search"></i>
+              <span class="btn-label">Search</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section class="section-2">
+      <div class="container">
+        <h2>Search Results</h2>
+        <div class="result-modules">
+          <div class="result-module">
+            <img src="./assets/sampleResult.png" alt="result-title" />
+          </div>
+          <div class="result-module">
+            <img src="./assets/sampleResult.png" alt="result-title" />
+          </div>
+          <div class="result-module">
+            <img src="./assets/sampleResult.png" alt="result-title" />
+          </div>
+          <div class="result-module">
+            <img src="./assets/sampleResult.png" alt="result-title" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <section class="footer-top">
+        <div class="container">
+          <div class="label">
+            <h3>Notify me when a vaccine is available</h3>
+          </div>
+          <div class="form-control form-control-row">
+            <div class="input-field-container">
+              <div class="input-container-input">
+                <input
+                  type="text"
+                  id="subEmail"
+                  placeholder="Type Your email in here"
+                />
+              </div>
+            </div>
+            <div class="input-field-container">
+              <div class="input-container-input">
+                <input
+                  type="text"
+                  id="subPostalCode"
+                  placeholder="Postal Code"
+                />
+              </div>
+            </div>
+            <div class="input-field-container">
+              <div class="btn btn-outline">
+                <span class="btn-label">Subscribe</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="footer-bottom">
+        <div class="container">
+            <p>©2021 Canvaxsearch Dreamhosters, All Rights Reserved.</p>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of use</a>
+        </section>
+    </div>
+    </footer>
+  </body>
+</html>
+
+<script>
+
+  const provinces = document.getElementsByClassName("dropdown-list__item");
+
+  const getProvinces = (e) =>{
+    document.getElementById("province-label").innerText = e.target.innerText;
+    document.getElementById("province").value = e.target.innerText;
+  }
+
+  for(const ele of provinces){
+    ele.addEventListener("click",getProvinces);
+  }
+
+
+
+</script>
