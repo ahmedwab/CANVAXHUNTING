@@ -89,10 +89,17 @@ h5 {
   -ms-transition: all ease 0.3s;
   -o-transition: all ease 0.3s;
 }
-.dropdown:hover .dropdown-list {
+
+.dropdown .dropdown-open {
   opacity: 1;
   visibility: visible;
 }
+.dropdown .dropdown-close {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
 .dropdown-select {
   padding: 1.5rem;
   border-radius: 4px;
