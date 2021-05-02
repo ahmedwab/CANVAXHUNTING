@@ -19,18 +19,23 @@
     <link rel="stylesheet" href="./stylesheets/global.css" />
     <link rel="stylesheet" href="./stylesheets/main-style.css" />
   
-  <script>
+    <script>
     const getProvinces = (e) =>{
       document.getElementById("province-label").innerText = e.innerText;
       document.getElementById("province").value = e.innerText;
-      handleCloseDropdown();
+      handleCloseDropdown("dropdown-list-province");
     }
-    const handleOpenDropdown=()=>{
-      const ele = document.getElementById('dropdown-list');
+    const handleAge = (e) =>{
+      document.getElementById("age-label").innerText = e.innerText;
+      document.getElementById("age").value = e.innerText;
+      handleCloseDropdown("dropdown-list-age");
+    }
+    const handleOpenDropdown=(id)=>{
+      const ele = document.getElementById(id);
       ele.classList.add("dropdown-open");
     }
-    const handleCloseDropdown=()=>{
-      const ele = document.getElementById('dropdown-list');
+    const handleCloseDropdown=(id)=>{
+      const ele = document.getElementById(id);
       ele.classList.remove("dropdown-open");
     }
 </script>
@@ -49,12 +54,12 @@
         <form class="form-control form-control-row"  action="" method="post" name='search-form'>
           <div class="input-field-container">
             <h5 class="title">Province or territory</h5>
-            <div class="dropdown input-container-input" onmouseover="handleOpenDropdown()" onmouseout="handleCloseDropdown()">
+            <div class="dropdown input-container-input" onmouseover="handleOpenDropdown('dropdown-list-province')" onmouseout="handleCloseDropdown('dropdown-list-province')">
               <div class="dropdown-select">
                 <span class="select" id="province-label" >Select Provice or Territory</span>
                 <i class="fa fa-caret-down icon"></i>
               </div>
-              <div class="dropdown-list" id="dropdown-list">
+              <div class="dropdown-list" id="dropdown-list-province">
                 <div class="dropdown-list__item" onclick="getProvinces(this)">Alberta</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">British Columbia</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">New Brunswick</div>
@@ -71,6 +76,23 @@
             </div>
             <input type="hidden" name="province" id="province">
           </div>
+          <div class="input-field-container input-field-container-small">
+            <h5 class="title">Age</h5>
+            <div class="dropdown input-container-input" onmouseover="handleOpenDropdown('dropdown-list-age')" onmouseout="handleCloseDropdown('dropdown-list-age')">
+              <div class="dropdown-select">
+                <span class="select" id="age-label" >Select Age Range</span>
+                <i class="fa fa-caret-down icon"></i>
+              </div>
+              <div class="dropdown-list" id="dropdown-list-age">
+                <div class="dropdown-list__item" onclick="handleAge(this)">18+</div>
+                <div class="dropdown-list__item" onclick="handleAge(this)">30+</div>
+                <div class="dropdown-list__item" onclick="handleAge(this)">40+</div>
+                <div class="dropdown-list__item" onclick="handleAge(this)">50+</div>
+              </div>
+            </div>
+            <input type="hidden" name="age" id="age">
+          </div>
+        
           <div class="input-field-container">
             <h5 class="title">Postal Code</h5>
             <div class="input-container-input">
