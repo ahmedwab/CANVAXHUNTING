@@ -4,17 +4,17 @@ Notification System for Canadian vaccines using postal code as input. Moreover, 
 ##Website
 
 Website can be found here:
-http://canvaxsearch.dreamhosters.com
+http://canvaxsearch.com
 
 Developer Page:
 
-http://canvaxsearch.dreamhosters.com/addposts.php
+http://canvaxsearch.dreamhosters.com/login.php
 ## Front End
 
 No front end design was developed.
 ## Database (SQL)
 
-These are the two required database tables for the notification system.
+These are the two essential database tables for the notification system.
 
 ```
 CREATE TABLE EMAILS (
@@ -29,6 +29,7 @@ CREATE TABLE POSTS (
     LINK TEXT NOT NULL,
     PROVINCE varchar(255) NOT NULL,
     POSTALCODE varchar(3) NOT NULL,
+    DATE DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     PRIMARY KEY (ID)
 );
 ```
