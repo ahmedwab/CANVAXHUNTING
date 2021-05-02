@@ -6,20 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Canada Vaccine Search</title>
     <link
-    async
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-    rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
     />
     <link
-    async
-    rel="stylesheet"
+      rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="./stylesheets/reset.css" />
     <link rel="stylesheet" href="./stylesheets/global-style.css" />
     <link rel="stylesheet" href="./stylesheets/main-styles.css" />
-  
-    <script>
+  </head>
+  <script>
     const getProvinces = (e) =>{
       document.getElementById("province-label").innerText = e.innerText;
       document.getElementById("province").value = e.innerText;
@@ -39,9 +37,6 @@
       ele.classList.remove("dropdown-open");
     }
 </script>
-
-
-  </head>
   <body>
     <section class="section-1">
       <div class="container">
@@ -61,24 +56,25 @@
                 <i class="fa fa-caret-down icon"></i>
               </div>
               <div class="dropdown-list" id="dropdown-list-province">
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Alberta</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">British Columbia</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">New Brunswick</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Newfoundland and Labrador</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Nova Scotia</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Ontario</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Prince Edward Island</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Quebec</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Saskatchewan</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Northwest Territories</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Nunavut</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">Yukon</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">AB</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">BC</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">MN</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">NB</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">NL</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">NS</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">ON</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">PEI</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">QC</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">SK</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">NT</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">NVT</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">YT</div>
               </div>
             </div>
             <input type="hidden" name="province" id="province">
           </div>
           <div class="input-field-container input-field-container-small">
-            <h5 class="title">Age</h5>
+            <h5 class="title">Age(optional)</h5>
             <div class="dropdown input-container-input" onmouseover="handleOpenDropdown('dropdown-list-age')" onmouseout="handleCloseDropdown('dropdown-list-age')">
               <div class="dropdown-select">
                 <span class="select" id="age-label" >Select Age Range</span>
@@ -95,9 +91,15 @@
           </div>
         
           <div class="input-field-container">
-            <h5 class="title">Postal Code</h5>
+            <h5 class="title">Postal Code(optional)</h5>
             <div class="input-container-input">
-              <input type="text" id="postalCode" maxlength="3" name="pcode" placeholder="Type your postal code"/>
+              <input type="text" id="postalCode" maxlength="3" name="pcode" placeholder="Type your postal code area: M1W"/>
+            </div>
+          </div>
+          <div class="input-field-container">
+            <h5 class="title">City(optional)</h5>
+            <div class="input-container-input">
+              <input type="text" id="city"  name="city" placeholder="Type your city"/>
             </div>
           </div>
           <div class="input-field-container">
@@ -109,18 +111,16 @@
         </form>
       </div>
     </section>
-    <section class="section-2">
-      <div class="container">
-        <h2>Search Results</h2>
+    
 
 
 <?php
 
 //database information
-$servername = "mysql.canvaxsearch.dreamhosters.com";
-$username = "ahmedwal";
-$password = "discussion1407";
-$databaseName = "canvaxsearch";
+$servername = "mysql.canvaxsearch.com";
+$username = "canvaxadmin";
+$password = "Cvs14072510";
+$databaseName = "canvaxdb";
 
  $conn = new mysqli($servername,$username,$password,$databaseName);
 
@@ -134,18 +134,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input fields
     $province = $_POST['province'];
     $postalCode = $_POST['pcode'];
+    $city =$_POST['city'];
+    $agegroup =$_POST['age'];
     // Find posts with the same province and postal code information
 
+    $agestmt="";
+    $postalstmt="";
+    $citystmt="";
+    
+    if ($agegroup!=NULL){
+      $agestmt="AND I.AGE = '$agegroup '";
+    }
+    if ($postalCode!=NULL){
+      $postalstmt="AND I.POSTALCODE = '$postalCode '";
+    }
+    if ($citystmt!=NULL){
+      $citystmt="AND I.CITY = '$city '";
+    }
 
+    $sql = "SELECT * FROM POSTS P, POSTINFO I
+    WHERE P.POST_ID = I.ID
+    AND
+    I.PROVINCE = '$province'"
+    .$agestmt.$postalstmt.$citystmt.
+    "
+    GROUP BY P.POST_ID
+    ORDER BY DATE DESC";
 
-    $sql = "SELECT * FROM POSTS WHERE PROVINCE='$province' AND POSTALCODE='$postalCode' ORDER BY DATE DESC";
     $stmt = $conn->prepare($sql); 
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result(); 
     
     echo'
-    
+    <section class="section-2">
+      <div class="container">
+        <h2>Search Results</h2>
         <div class="result-modules">';
           
        
@@ -154,7 +178,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // output data of each post
 
       while($row = $result->fetch_assoc()) {
-        $link=$row["LINK"];
+        $link=$row["EMBEDDED_LINK"];
 
         echo'<div class="result-module">'
         .$link.
@@ -169,13 +193,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     echo'
     </div>
-   ';
+    </div>
+  </section>';
   
 }
 ?>
 
-</div>
-</section>
 
 
 
@@ -193,15 +216,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   id="subEmail"
                   name="subEmail"
                   placeholder="someone@example.com"
-                />            
-                </div>
+                />              </div>
             </div>
             <div class="input-field-container">
               <div class="input-container-input">
                 <input
                   type="text"
                   id="subPostalCode"
-                  name="subPostalCode"
+                  name='subPostalCode'
                   placeholder="Postal Code: M1W" maxlength="3"
                 />
               </div>
@@ -226,8 +248,8 @@ $stmt = $conn->prepare("INSERT INTO EMAILS (EMAIL, POSTALCODE) VALUES (?, ?)");
 $stmt->bind_param("ss", $email, $pcode,);
 
 // set parameters and execute
-$email = $_GET['email'];
-$pcode = $_GET['pcode'];
+$email = $_GET['subEmail'];
+$pcode = $_GET['subPostalCode'];
 if ($stmt->execute()) { 
   echo"<h3> You are now subscribed to receive notifications</h3>";
 } 
@@ -243,23 +265,41 @@ $conn->close();
 
 
 ?>
-       <section class="footer-bottom">
-            <div class="container">
-              <div>
-                <p>No affiliation with any government or public health entity. ©2021 Canvaxsearch, All Rights Reserved.</p>
-              </div>
-              <div>
-                <a href="/privacy.html">Privacy Policy</a>
-                <a href="/terms.html">Terms of use</a>
-                <a href="/login.php">Login</a>
-              </div>
-                <p>Developed by:
-                <a href="https://github.com/oseisaac">Isaac Ose</a>
-                &
-                <a href="https://github.com/ahmedwab">Ahmed Abdelfattah</a></p>
-            </section>
+      <section class="footer-bottom">
+        <div class="container">
+            <p>No affiliation with any government or public health entity.<br>
+            <p>©2021 Canvaxsearch, All Rights Reserved.</p>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of use</a>
+            <a href="/login.php">Login</a>
+            <p>Developed by:</p>
+            <a href="https://github.com/oseisaac">Isaac Ose</a>
+            <p>&</p>
+            <a href="https://github.com/ahmedwab">Ahmed Abdelfattah</a>
+        </section>
     </div>
     </footer>
   </body>
 </html>
+
+<script>
+    const getProvinces = (e) =>{
+      document.getElementById("province-label").innerText = e.innerText;
+      document.getElementById("province").value = e.innerText;
+      handleCloseDropdown("dropdown-list-province");
+    }
+    const handleAge = (e) =>{
+      document.getElementById("age-label").innerText = e.innerText;
+      document.getElementById("age").value = e.innerText;
+      handleCloseDropdown("dropdown-list-age");
+    }
+    const handleOpenDropdown=(id)=>{
+      const ele = document.getElementById(id);
+      ele.classList.add("dropdown-open");
+    }
+    const handleCloseDropdown=(id)=>{
+      const ele = document.getElementById(id);
+      ele.classList.remove("dropdown-open");
+    }
+</script>
 
