@@ -143,6 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $citystmt="";
     
     if ($agegroup!=NULL){
+      $agegroup=substr($agegroup, 0, -1);
       $agestmt="AND I.AGE = '$agegroup '";
     }
     if ($postalCode!=NULL){
@@ -269,12 +270,11 @@ $conn->close();
         <div class="container">
             <p>No affiliation with any government or public health entity.<br>
             <p>©2021 Canvaxsearch, All Rights Reserved.</p>
+            <a href="mailto:contact@canvaxsearch.com">Contact Us</a>.<br> 
             <a href="/privacy.html">Privacy Policy</a>
             <a href="/terms.html">Terms of use</a>
-            <a href="/login.php">Login</a>
             <p>Developed by:</p>
-            <a href="https://github.com/oseisaac">Isaac Ose</a>
-            <p>&</p>
+            <a href="https://github.com/oseisaac">Isaac Ose  </a>&
             <a href="https://github.com/ahmedwab">Ahmed Abdelfattah</a>
         </section>
     </div>
