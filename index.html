@@ -14,8 +14,8 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="./stylesheets/reset.css" />
-    <link rel="stylesheet" href="./stylesheets/global.css" />
-    <link rel="stylesheet" href="./stylesheets/main-style.css" />
+    <link rel="stylesheet" href="./stylesheets/global-style.css" />
+    <link rel="stylesheet" href="./stylesheets/main-styles.css" />
   </head>
   <script>
     const getProvinces = (e) =>{
@@ -28,7 +28,7 @@
       document.getElementById("age").value = e.innerText;
       handleCloseDropdown("dropdown-list-age");
     }
-    const handleOpenDropdown=(id)=>{
+    const handleOpenDropdown=(id)=>{D
       const ele = document.getElementById(id);
       ele.classList.add("dropdown-open");
     }
@@ -136,6 +136,7 @@
                 <input
                   type="text"
                   id="subEmail"
+                  name="subEmail"
                   placeholder="someone@example.com"
                 />              </div>
             </div>
@@ -144,7 +145,8 @@
                 <input
                   type="text"
                   id="subPostalCode"
-                  laceholder="Postal Code: M1W" maxlength="3"
+                  name='subPostalCode'
+                  placeholder="Postal Code: M1W" maxlength="3"
                 />
               </div>
             </div>
@@ -180,21 +182,3 @@
 </html>
 
 
-<!-- <div class="input-field-container">
-  <h5 class="title">Age</h5>
-  <div class="dropdown input-container-input"onmouseover="handleOpenDropdown('dropdown-list-2')" onmouseout="handleCloseDropdown('dropdown-list-2')">
-    <div class="dropdown-select">
-      <span class="select" id="province-label" >Select Age Range</span>
-      <i class="fa fa-caret-down icon"></i>
-    </div>
-    <div class="dropdown-list" id="dropdown-list-2">
-      <div class="dropdown-list" id="dropdown-list">
-        <div class="dropdown-list__item" onclick="handleAge(this)">18+</div>
-        <div class="dropdown-list__item" onclick="handleAge(this)">30+</div>
-        <div class="dropdown-list__item" onclick="handleAge(this)">40+</div>
-        <div class="dropdown-list__item" onclick="handleAge(this)">50+</div>
-      </div>
-    </div>
-  </div>
-  <input type="hidden" name="age" id="age">
-</div> -->
