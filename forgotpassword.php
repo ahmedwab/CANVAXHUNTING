@@ -12,12 +12,13 @@ $databaseName = "canvaxsearch";
 
 
  $accountusername= $_POST['forgot-email'];
-
- $emailtext=md5($accountusername). md5(date_default_timezone_get());
  
 
  $sql="SELECT EMAIL FROM ACCOUNTS WHERE EMAIL='$accountusername' ";
- $result = $conn->query($sql);
+ $stmt = $conn->prepare($sql); 
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result(); 
 
 
 
@@ -26,11 +27,15 @@ $databaseName = "canvaxsearch";
     
  
   
+  $stmt = $conn->prepare("INSERT INTO PASSWORD (TOKEN,EMAIL) VALUES (?, ?)");
+  $stmt->bind_param("ss", $emailtext, $accountusername);
+  
+  // set parameters and execute
+  
+  $accountusername= $_POST['forgot-email'];
 
-
-
-  $query = "INSERT INTO PASSWORD (TOKEN, EMAIL)
-  VALUES ( '$emailtext', '$accountusername')";
+ $emailtext=md5($accountusername). md5(date_default_timezone_get());
+  $stmt->execute();
 
 
 
@@ -38,7 +43,7 @@ $databaseName = "canvaxsearch";
          $subject = "Password recovery";
          
          $message = "<b>Click the link to recover password.</b>";
-         $message .= "http://canvaxsearch.dreamhosters.com/recoverpassword.php?token=" . $emailtext;
+         $message .= "http://canvaxsearch.com/recoverpassword.php?token=" . $emailtext;
          
          $header = "From:no-reply@canvaxsearch.com \r\n";
          $header .= "MIME-Version: 1.0\r\n";
@@ -63,7 +68,7 @@ $databaseName = "canvaxsearch";
 
 
 
-
+ $stmt->close();
  $conn->close();
  ?>
 

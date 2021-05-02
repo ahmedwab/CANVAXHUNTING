@@ -36,6 +36,8 @@
             <button type="submit" class="submit" id="submit" name="submit-login">Submit</button>
             <br>
          </form>
+         <a  href="login.php"><h3> Go back</h3></a><br>
+         <a  href="addposts.php"><h3> Reset</h3></a><br>
       </div>
       <?php
          //database information
@@ -68,22 +70,33 @@
              echo "Name is empty";
            } else {
             for($i = 0; $i < count($postalcodes); $i++) {
-              $postalCode = $postalcodes[$i];
+              
              //inserts post information to the posts table
-             $sql = "INSERT INTO POSTS (LINK, PROVINCE,POSTALCODE)
-             VALUES ('$pname' ,'$province','$postalCode')";
-         
-             if (mysqli_query($conn, $sql)) {
-               echo "New record created successfully<br>";
-             } else {
-               echo "Error: " . $sql . "<br>" . mysqli_error($conn) . "<br>";
-             }
+
+
+
+             $stmt = $conn->prepare("INSERT INTO POSTS (LINK, PROVINCE,POSTALCODE) VALUES (?, ?,?)");
+            $stmt->bind_param("sss", $pname, $province,$postalCode);
+
+            // set parameters and execute
+            $pname = $_POST['tname'];
+            $province = $_POST['province'];
+            $postalCode = $postalcodes[$i];
+            if ($stmt->execute()) { 
+              echo "New record created successfully<br>";
+            } else {
+              echo "Error: " . $sql . "<br>" . mysqli_error($conn) . "<br>";
+            }
+        
          
          
          
              //sending email notifications to everyone with inputted postal code.
              $sql = "SELECT EMAIL FROM EMAILS WHERE POSTALCODE = '$postalCode'";
-             $result = $conn->query($sql);
+             $stmt = $conn->prepare($sql); 
+              $stmt->bind_param("i", $id);
+              $stmt->execute();
+              $result = $stmt->get_result(); 
          
              if ($result->num_rows > 0) {
                // output data of each row
@@ -127,6 +140,8 @@
            }
           }
          }
+         $stmt->close();
+         $conn->close();
          ?>
    </body>
 </html>

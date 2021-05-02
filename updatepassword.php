@@ -10,16 +10,20 @@ $databaseName = "canvaxsearch";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
-$email=  $_POST['update-email'];
+
 $password= $_POST['update-password'];
 
-$sql = "UPDATE ACCOUNTS SET password=MD5('$password') WHERE EMAIL='$email'";
 
+$SQL = $db_found->prepare("UPDATE ACCOUNTS SET password=?,WHERE email=?");
 
-$conn->query($sql);
+$SQL->bind_param('ss', $password, $email);
+$password = MD5('$password');
+$email=  $_POST['update-email'];
+$SQL->execute();
+
 $_SESSION["user"] = $username;
 header('Location: login.php');
 
-
+$stmt->close();
 $conn->close();
 ?>

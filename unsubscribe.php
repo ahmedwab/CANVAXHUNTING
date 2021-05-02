@@ -13,13 +13,14 @@ $databaseName = "canvaxsearch";
 
  $conn = new mysqli($servername,$username,$password,$databaseName);
 
+
+
+
+$sql = $conn->prepare("DELETE FROM members WHERE email=?");
+$sql->bind_param('s', $email);
 $email = $_GET['email'];
 
-
-// sql to delete a record with a given email
-$sql = "DELETE FROM EMAILS WHERE email='$email'";
-
-if ($conn->query($sql) === TRUE && $email !=NULL) {
+if ($SQL->execute() == TRUE && $email !=NULL) {
   echo $email . ' has been unsubscribed.';
 } else {
   echo "Email is not subscribed";
@@ -27,7 +28,8 @@ if ($conn->query($sql) === TRUE && $email !=NULL) {
 
  
 
-
+$stmt->close();
+$conn->close();
 ?>
 
 </body>

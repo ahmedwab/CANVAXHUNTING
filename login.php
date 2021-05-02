@@ -22,7 +22,10 @@ $databaseName = "canvaxsearch";
 
 
  $sql = "SELECT EMAIL,password FROM ACCOUNTS WHERE EMAIL='$accountusername' AND PASSWORD=MD5('$accountpassword') LIMIT 1" ;
- $result = $conn->query($sql);
+    $stmt = $conn->prepare($sql); 
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
 
 if ($result -> num_rows > 0){
@@ -40,6 +43,10 @@ else{
 $forgotusername=$_POST['forgot-username'];
 if(isset($_POST['submit-pass'])){
 $sql = "SELECT lower(username) WHERE username='$forgotusername' LIMIT 1" ;
+    $stmt = $conn->prepare($sql); 
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result(); 
 if ($result -> num_rows > 0){
   header('Location: forgotpassword.php');
 }
@@ -65,7 +72,7 @@ else{
 
 </head>
 <body>
-    <img src="images/Maple_Leaf.svg" alt="Canada" id="mapleLeaf">
+   <a href="index.php"> <img src="images/Maple_Leaf.svg" alt="Canada" id="mapleLeaf"></a>
   <div class="container" id="sign-in">
     <div>
     <br>
@@ -102,27 +109,7 @@ function enterpassword(){
 
 </script>
 
-<?php
 
-
-$sql = "SELECT COUNT(*)as count FROM ACCOUNTS " ;
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-$count = $row[count];
-
-
-if($count>10){
-
-echo "<div id='count' align='center' style='color:white' >";
-echo "<h1> Join <br>";
-echo  number_format($count);
-echo "<br> Users </h1>";
-
-
-$conn->close();
-
-}
-?>
 
 
 

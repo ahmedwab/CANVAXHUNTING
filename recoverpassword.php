@@ -17,7 +17,11 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
  $accountusername = NULL;
 
  $sql="SELECT * FROM PASSWORD WHERE TOKEN='$token' ";
- $result = $conn->query($sql);
+ 
+ $stmt = $conn->prepare($sql); 
+ $stmt->bind_param("i", $id);
+ $stmt->execute();
+ $result = $stmt->get_result();
  if($result-> num_rows>0){
     while($row = $result->fetch_assoc()){
         $accountusername = $row['EMAIL'];
@@ -31,7 +35,7 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 
 
 
-
+ $stmt->close();
  $conn->close();
  ?>
 

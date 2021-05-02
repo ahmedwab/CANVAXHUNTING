@@ -1,0 +1,119 @@
+body{
+  background-color:whitesmoke;
+  overflow: scroll;
+}
+
+#mapleLeaf{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  width: 150px;
+  height:   150px;
+
+
+}
+
+.container{
+  border-radius: 10px;
+  margin-top: 5%;
+  display:block;
+  margin-left: auto;
+  margin-right:auto;
+  margin-bottom: 5%;
+  width:600px;
+  border: 5px solid white;
+  background-color: white;
+  border: none;
+  position: relative;
+  overflow:auto;
+}
+@media only screen and (max-width: 600px) {
+  .container {
+    width:90%;
+
+    margin-left: 5%;
+  }
+}
+
+
+#invalid-text, #taken-text{
+  color: red;
+  text-align: center;
+  display:none;
+}
+
+
+.form-control{
+  background-color: whitesmoke;
+  border: none;
+  font-size: 20px;;
+  margin-top: 1%;
+  border-radius: 0px;
+}
+.submit{
+  width:100%;
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.submit:hover{
+  background-color: maroon;
+
+}
+.submit-pass{
+  width:40%;
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 12px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  float:right;
+
+}
+
+.submit-pass:hover{
+    background-color: maroon;
+}
+#forgot-username{
+  width:50%;
+  float:left;
+}
+#login-txt{
+  color: red;
+}
+
+
+.click-here{
+  color: red;
+}
+.click-here:hover{
+  color: red;
+  cursor: pointer;
+}
+#password-form{
+  display:none;
+}
+
+#province {
+    background-color: whitesmoke;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+
+
+
