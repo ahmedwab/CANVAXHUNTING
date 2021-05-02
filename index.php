@@ -16,8 +16,8 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="./stylesheets/reset.css" />
-    <link rel="stylesheet" href="./stylesheets/global.css" />
-    <link rel="stylesheet" href="./stylesheets/main-style.css" />
+    <link rel="stylesheet" href="./stylesheets/global-style.css" />
+    <link rel="stylesheet" href="./stylesheets/main-styles.css" />
   
     <script>
     const getProvinces = (e) =>{
@@ -190,14 +190,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input
                   type="text"
                   id="subEmail"
+                  name="subEmail"
                   placeholder="someone@example.com"
-                />              </div>
+                />            
+                </div>
             </div>
             <div class="input-field-container">
               <div class="input-container-input">
                 <input
                   type="text"
                   id="subPostalCode"
+                  name="subPostalCode"
                   placeholder="Postal Code: M1W" maxlength="3"
                 />
               </div>
