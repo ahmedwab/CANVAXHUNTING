@@ -58,16 +58,16 @@
               <div class="dropdown-list" id="dropdown-list-province">
                 <div class="dropdown-list__item" onclick="getProvinces(this)">AB</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">BC</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">MN</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">MB</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">NB</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">NU</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">NT</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">NL</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">NS</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">ON</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">PEI</div>
+                <div class="dropdown-list__item" onclick="getProvinces(this)">PE</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">QC</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">SK</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">NT</div>
-                <div class="dropdown-list__item" onclick="getProvinces(this)">NVT</div>
                 <div class="dropdown-list__item" onclick="getProvinces(this)">YT</div>
               </div>
             </div>
@@ -149,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($postalCode!=NULL){
       $postalstmt="AND I.POSTALCODE = '$postalCode '";
     }
-    if ($citystmt!=NULL){
+    if ($city!=NULL){
       $citystmt="AND I.CITY = '$city '";
     }
 
@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <section class="footer-top">
         <div class="container">
           <div class="label">
-            <h3>Notify me when a vaccine is available</h3>
+            <h3>Want to get notified when a vaccine is available?</h3>
           </div>
           <form class="form-control form-control-row"  action="" method="get" name='subscribe-form'>
             <div class="input-field-container">
