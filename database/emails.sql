@@ -16,6 +16,7 @@ DESCRIPTION: first 3 characters of postal code that identifies user's address
 
 CREATE TABLE EMAILS (
     EMAIL varchar(255) NOT NULL,
+    CITY varchar(255),
     POSTALCODE varchar(3) NOT NULL,
     PRIMARY KEY (EMAIL)
 );

@@ -40,16 +40,18 @@
   <body>
     <section class="section-1">
       <div class="container">
+        <a href="index.php">
         <img
           src="./images/maple.png"
           draggable="false"
           alt="maple leaf"
           id="logo"
         />
+      </a>
         <h1>Canada Vaccine Search</h1>
         <form class="form-control form-control-row"  action="" method="post" name='search-form'>
           <div class="input-field-container">
-            <h5 class="title">Province or territory</h5>
+            <h5 class="title">Province or territory *</h5>
             <div class="dropdown input-container-input" onmouseover="handleOpenDropdown('dropdown-list-province')" onmouseout="handleCloseDropdown('dropdown-list-province')">
               <div class="dropdown-select">
                 <span class="select" id="province-label" >Select Provice or Territory</span>
@@ -89,6 +91,13 @@
             </div>
             <input type="hidden" name="age" id="age">
           </div>
+
+          <div class="input-field-container">
+            <h5 class="title">City(optional)</h5>
+            <div class="input-container-input">
+              <input type="text" id="city"  name="city" placeholder="Type your city"/>
+            </div>
+          </div>
         
           <div class="input-field-container">
             <h5 class="title">Postal Code(optional)</h5>
@@ -96,12 +105,7 @@
               <input type="text" id="postalCode" maxlength="3" name="pcode" placeholder="Type your postal code area: M1W"/>
             </div>
           </div>
-          <div class="input-field-container">
-            <h5 class="title">City(optional)</h5>
-            <div class="input-container-input">
-              <input type="text" id="city"  name="city" placeholder="Type your city"/>
-            </div>
-          </div>
+          
           <div class="input-field-container">
             <div class="btn" onClick="document.forms['search-form'].submit();">
               <i class="fa fa-search"></i>
@@ -109,12 +113,32 @@
             </div>
           </div>
         </form>
+        <br><br><h4 style="color:grey"> Note: Try searching using your city before adding postal code area for best results.</h4>
       </div>
+      
     </section>
     
 
 
-<?php
+    <?php
+
+    //get user inputs
+    $province = $_POST['province'];
+
+    $age =$_POST['age'];
+    $age = substr($age, 0, -1);
+    $city= $_POST['city'];
+    $city = strtolower($city);
+    $city = '\'' .$city .'\'';
+    $postalcode = $_POST['pcode'];
+    $postalcode = '\'' .$postalcode .'\'';
+    $postalcode = strtolower($postalcode);
+
+    
+
+
+
+
 
 //database information
 $servername = "mysql.canvaxsearch.com";
@@ -123,81 +147,107 @@ $password = "Cvs14072510";
 $databaseName = "canvaxdb";
 
  $conn = new mysqli($servername,$username,$password,$databaseName);
-
-
  
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  
+ $sql = "SELECT * FROM tweet 
+ WHERE province ='$province'
+ ORDER BY created_at DESC
+ LIMIT 15";
 
-
-    // collect value of input fields
-    $province = $_POST['province'];
-    $postalCode = $_POST['pcode'];
-    $city =$_POST['city'];
-    $agegroup =$_POST['age'];
-    // Find posts with the same province and postal code information
-
-    $agestmt="";
-    $postalstmt="";
-    $citystmt="";
-    
-    if ($agegroup!=NULL){
-      $agegroup=substr($agegroup, 0, -1);
-      $agestmt="AND I.AGE = '$agegroup '";
-    }
-    if ($postalCode!=NULL){
-      $postalstmt="AND I.POSTALCODE = '$postalCode '";
-    }
-    if ($city!=NULL){
-      $citystmt="AND I.CITY = '$city '";
-    }
-
-    $sql = "SELECT * FROM POSTS P, POSTINFO I
-    WHERE P.POST_ID = I.ID
-    AND
-    I.PROVINCE = '$province'"
-    .$agestmt.$postalstmt.$citystmt.
-    "
-    GROUP BY P.POST_ID
-    ORDER BY DATE DESC";
 
     $stmt = $conn->prepare($sql); 
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result(); 
-    
+
     echo'
     <section class="section-2">
       <div class="container">
-        <h2>Search Results</h2>
-        <div class="result-modules">';
-          
-       
-
+        <h2>Search Results</h2>';
+    
     if ($result->num_rows > 0) {
-      // output data of each post
+        // output data of each post
 
-      while($row = $result->fetch_assoc()) {
-        $link=$row["EMBEDDED_LINK"];
-
-        echo'<div class="result-module">'
-        .$link.
-        
-        "</div>";
-        
-
-      }
-    }
-    else{
-      echo'<h3> No Results Found </h3>';
-    }
-    echo'
-    </div>
-    </div>
-  </section>';
+        echo '<div class="result-modules">';
   
+        while($row = $result->fetch_assoc()) {
+            $id=$row["tweet_id"];
+             $curltext="https://publish.twitter.com/oembed?url=";
+             $url = $curltext."https://twitter.com/VaxHuntersCan/status/".$id;
+             $ch = curl_init(); 
+             // Return Page contents.
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  
+            //grab URL and pass it to the variable.
+                curl_setopt($ch, CURLOPT_URL, $url);
+      
+                $res = curl_exec($ch);
+      
+                $decoded_data = json_decode($res);
+    
+
+            //table elements
+            $age_groups=$row["age_groups"];
+            $age_groups=substr($age_groups, 1, -1);
+
+             //table elements
+             $cities=$row["cities"];
+             $cities = substr($cities, 1, -1);
+            $cities = explode(',', $cities);
+
+            $cities = array_map('strtolower', $cities);
+
+            $inCity = 0;
+
+                $city2 = ' '.$city;
+                if(in_array($city,$cities)||in_array($city2,$cities)){
+                    $inCity = 1;
+                }
+
+            //table elements
+            $FSAs=$row["FSAs"];
+            $FSAs = substr($FSAs, 1, -1);
+           $FSAs = explode(',', $FSAs);
+
+           $FSAs = array_map('strtolower', $FSAs);
+
+           $inPostal = 0;
+
+               $postalcode2 = ' '.$postalcode;
+               if(in_array($postalcode,$FSAs)||in_array($postalcode2,$FSAs)){
+                   $inPostal = 1;
+               }
+
+            
+            $hasResult=0;
+           if(($age==NULL || $age==$age_groups)&&  (($city=='\'\'' || $inCity==1)&&($postalcode=='\'\'' || $inPostal==1)))
+
+            {
+              $hasResult=1;
+            
+                
+              echo'<div class="result-module">'
+              ."$decoded_data->html".
+              
+              "</div>";
+        
+        }
+    
+            
+          
+        
+        
+    }
+    
+    echo '</div>';
+    
 }
+else if ($hasResult==0||$result->num_rows <= 0){
+    echo '<h3> No results found </h3><br>';
+}
+echo'   
+    </div> 
+    </section>';
 ?>
 
 
@@ -218,6 +268,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   name="subEmail"
                   placeholder="someone@example.com"
                 />              </div>
+            </div>
+            <div class="input-field-container">
+              <div class="input-container-input">
+                <input
+                  type="text"
+                  id="subCity"
+                  name='subCity'
+                  placeholder="City: Toronto" maxlength="255"
+                />
+              </div>
             </div>
             <div class="input-field-container">
               <div class="input-container-input">
@@ -245,11 +305,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
  
 
-$stmt = $conn->prepare("INSERT INTO EMAILS (EMAIL, POSTALCODE) VALUES (?, ?)");
-$stmt->bind_param("ss", $email, $pcode,);
+$stmt = $conn->prepare("INSERT INTO EMAILS (EMAIL,CITY, POSTALCODE) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $scity,$email, $pcode,);
 
 // set parameters and execute
 $email = $_GET['subEmail'];
+$scity = $_GET['subCity'];
 $pcode = $_GET['subPostalCode'];
 if ($stmt->execute()) { 
   echo"<h3> You are now subscribed to receive notifications</h3>";
