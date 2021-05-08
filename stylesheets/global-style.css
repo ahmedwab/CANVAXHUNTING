@@ -1,3 +1,39 @@
+:root {
+  --main-bg-color: #fff;
+  --theme-primary: #ff0000;
+  --white: rgb(255, 255, 255);
+  --black: rgb(26, 26, 26);
+  --text-secondary: rgb(119, 119, 119);
+  --btn-bg-color: #ff0000;
+  --outline-color: rgb(119, 119, 119);
+  --hover: #80808026;
+  --border-color: #4d4d4d61;
+  --outline-dark: #8e8e8e26;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-family: "OpenSans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Poppins", sans-serif;
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
 h1 {
   font-size: 36px;
 }
@@ -212,11 +248,13 @@ h5 {
 }
 .form-control.form-control-row {
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .form-control .input-field-container {
   display: flex;
   flex-direction: column;
+  margin: 10px 0;
 }
 
 .form-control.form-control-row .input-field-container:not(:nth-child(1)) {
@@ -253,7 +291,7 @@ h5 {
   box-shadow: 0px 0px 2px 0.4px var(--outline-dark);
 }
 
-@media screen and (max-width: 1201px) {
+@media screen and (max-width: 1454px) {
   .form-control.form-control-row {
     flex-direction: column;
   }

@@ -1,0 +1,25 @@
+body {
+  background-image: url("/images/bg-maple.png");
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: 30%;
+  background-size: 500px;
+}
+
+.container {
+  padding: 50px;
+}
+
+h2,
+h3 {
+  margin: 20px 0;
+}
+
+p {
+  font-size: 14px;
+}
+
+ul {
+  font-size: 15px;
+  margin: 20px;
+}

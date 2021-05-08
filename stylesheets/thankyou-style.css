@@ -1,0 +1,90 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inner {
+  margin: auto;
+  text-align: center;
+  max-width: 500px;
+}
+
+.inner h1 {
+  font-size: 130px;
+  font-weight: 500;
+  line-height: 1;
+  background: -webkit-linear-gradient(var(--theme-primary), #eee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.inner h5 {
+  font-size: 24px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #4c4b4b;
+  letter-spacing: 2px;
+}
+.inner p {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.inner p > a {
+  color: var(--theme-primary);
+  text-decoration: none;
+}
+.inner a:hover {
+  text-decoration: underline;
+}
+
+.icons-container {
+  display: flex;
+  margin: 30px auto;
+  place-content: center;
+}
+
+.icons-container i {
+  display: flex;
+  margin: 10px 20px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: solid 1px #ff00007a;
+  border-radius: 50%;
+  font-size: 14px;
+  color: #ff00007a;
+  transition: color 0.25s transform 0.25s ease;
+  -webkit-transition: color 0.25s transform 0.25s ease;
+  -moz-transition: color 0.25s transform 0.25s ease;
+  -ms-transition: color 0.25s transform 0.25s ease;
+  -o-transition: color 0.25s transform 0.25s ease;
+}
+.icons-container a {
+  text-decoration: none;
+  color: transparent;
+}
+.icons-container i:hover {
+  border: solid 1px var(--theme-primary);
+  color: var(--theme-primary);
+  cursor: pointer;
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
+}
+
+@media screen and (max-width: 768px) {
+  .inner h1 {
+    font-size: 60px;
+  }
+  .inner p {
+    font-size: 15px;
+  }
+}
