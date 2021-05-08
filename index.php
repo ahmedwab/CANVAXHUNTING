@@ -151,8 +151,7 @@ $databaseName = "canvaxdb";
 
  $sql = "SELECT * FROM tweet 
  WHERE province ='$province'
- ORDER BY created_at DESC
- LIMIT 15";
+ ORDER BY created_at DESC";
 
 
     $stmt = $conn->prepare($sql); 
@@ -162,14 +161,15 @@ $databaseName = "canvaxdb";
 
     echo'
     <section class="section-2">
-      <div class="container">
-        <h2>Search Results</h2>';
+      <div class="container">';
+       
     
     if ($result->num_rows > 0) {
         // output data of each post
 
-        echo '<div class="result-modules">';
-  
+        echo '<h2>Search Results</h2>
+        <div class="result-modules"> ';
+        $count=0;
         while($row = $result->fetch_assoc()) {
             $id=$row["tweet_id"];
              $curltext="https://publish.twitter.com/oembed?url=";
@@ -220,7 +220,7 @@ $databaseName = "canvaxdb";
 
             
             $hasResult=0;
-           if(($age==NULL || $age==$age_groups)&&  (($city=='\'\'' || $inCity==1)&&($postalcode=='\'\'' || $inPostal==1)))
+           if(($age==NULL || $age==$age_groups)&&  (($city=='\'\'' || $inCity==1)&&($postalcode=='\'\'' || $inPostal==1))||$count>=15)
 
             {
               $hasResult=1;
@@ -234,7 +234,7 @@ $databaseName = "canvaxdb";
         }
     
             
-          
+          $count+=1;
         
         
     }
@@ -242,7 +242,7 @@ $databaseName = "canvaxdb";
     echo '</div>';
     
 }
-else if ($hasResult==0||$result->num_rows <= 0){
+else if (($hasResult==0||$result->num_rows <= 0) && $province!=NULL){
     echo '<h3> No results found </h3><br>';
 }
 echo'   
@@ -306,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
  
 
 $stmt = $conn->prepare("INSERT INTO EMAILS (EMAIL,CITY, POSTALCODE) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $scity,$email, $pcode,);
+$stmt->bind_param("sss", $email,$scity, $pcode,);
 
 // set parameters and execute
 $email = $_GET['subEmail'];
@@ -337,6 +337,7 @@ $conn->close();
             <p>Developed by:</p>
             <a href="https://github.com/oseisaac">Isaac Ose  </a>&
             <a href="https://github.com/ahmedwab">Ahmed Abdelfattah</a>
+            Special Thanks to:<a href="https://vaccineupdates.ca">vaccineupdates.ca</a> 
         </section>
     </div>
     </footer>
