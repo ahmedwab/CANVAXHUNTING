@@ -255,6 +255,7 @@ h5 {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
+  padding: auto;
 }
 
 .form-control.form-control-row .input-field-container:not(:nth-child(1)) {
