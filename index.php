@@ -17,7 +17,19 @@
     <link rel="stylesheet" href="./stylesheets/global-style.css" />
     <link rel="stylesheet" href="./stylesheets/main-styles.css" />
   </head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JHJ9Q588ND"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JHJ9Q588ND');
+</script>
   <script>
+      var p = 'MB';
+    
+      document.getElementById("province-label").innerText = p;
     const getProvinces = (e) =>{
       document.getElementById("province-label").innerText = e.innerText;
       document.getElementById("province").value = e.innerText;
@@ -73,7 +85,7 @@
                 <div class="dropdown-list__item" onclick="getProvinces(this)">YT</div>
               </div>
             </div>
-            <input type="hidden" name="province" id="province" >
+            <input type="hidden" name="province" id="province" value="<?php echo $_POST['province'] ?>">
           </div>
           <div class="input-field-container input-field-container-small">
             <h5 class="title">Age(optional)</h5>
@@ -98,6 +110,7 @@
               <input type="text" id="city"  name="city" placeholder="Type your city" value="<?php echo $_POST['city'] ?>"/>
             </div>
           </div>
+
         
           <div class="input-field-container">
             <h5 class="title">Postal Code(optional)</h5>
@@ -328,12 +341,14 @@ $conn->close();
               <div>
                 <a href="/privacy.html">Privacy Policy</a>
                 <a href="/terms.html">Terms of use</a>
-                <a href="/login.php">Login</a>
               </div>
                 <p>Developed by:
                 <a href="https://github.com/oseisaac">Isaac Ose</a>
                 &
                 <a href="https://github.com/ahmedwab">Ahmed Abdelfattah</a></p>
+                <p>Special Thanks to:
+                <a href="http://vaccineupdates.ca">http://vaccineupdates.ca</a></p>
+
             </section>
         </section>
     </div>
@@ -341,24 +356,4 @@ $conn->close();
   </body>
 </html>
 
-<script>
-    const getProvinces = (e) =>{
-      document.getElementById("province-label").innerText = 
-      document.getElementById("province-label").innerText = e.innerText;
-      document.getElementById("province").value = e.innerText;
-      handleCloseDropdown("dropdown-list-province");
-    }
-    const handleAge = (e) =>{
-      document.getElementById("age-label").innerText = e.innerText;
-      document.getElementById("age").value = e.innerText;
-      handleCloseDropdown("dropdown-list-age");
-    }
-    const handleOpenDropdown=(id)=>{
-      const ele = document.getElementById(id);
-      ele.classList.add("dropdown-open");
-    }
-    const handleCloseDropdown=(id)=>{
-      const ele = document.getElementById(id);
-      ele.classList.remove("dropdown-open");
-    }
-</script>
+
