@@ -69,21 +69,13 @@
 
     // Add all the field values here after post request
     document.addEventListener('DOMContentLoaded', (event) => {
-      var p = 'MB';
+      var p = "<?php echo $_POST['province'] ?>";
       if(p){
           document.getElementById("province-label").innerText =p;
         }
-      var age = '24+';
+      var age = "<?php echo $_POST['age'] ?>";
       if(age){
           document.getElementById("age-label").innerText =age;
-        }
-      var city= 'Missisauga';
-      if(city){
-          document.getElementById("city").innerText =city;
-        }
-      var postalCode = 'M3B';
-      if(postalCode){
-          document.getElementById("postalCode").innerText =postalCode;
         }
   })
 
@@ -134,17 +126,18 @@
                 <i class="fa fa-caret-down icon"></i>
               </div>
               <div class="dropdown-list" id="dropdown-list-age">
+                <div class="dropdown-list__item" onclick="handleAge(this)">Any</div>
                 <div class="dropdown-list__item" onclick="handleAge(this)">18+</div>
                 <div class="dropdown-list__item" onclick="handleAge(this)">30+</div>
                 <div class="dropdown-list__item" onclick="handleAge(this)">40+</div>
                 <div class="dropdown-list__item" onclick="handleAge(this)">50+</div>
               </div>
             </div>
-            <input type="hidden" name="age" id="age" >
+            <input type="hidden" name="age" id="age" value="<?php echo $_POST['age'] ?>">
           </div>
 
           <div class="input-field-container">
-            <h5 class="title">City(optional)</h5>
+            <h5 class="title">Public Health Unit(optional)</h5>
             <div class="input-container-input">
               <input type="text" id="city"  name="city" placeholder="Type your city" value="<?php echo $_POST['city'] ?>"/>
             </div>
@@ -177,6 +170,7 @@
 $province = $_POST['province'];
 
 $age = $_POST['age'];
+if($age=='Any') $age=NULL;
 $age = substr($age, 0, -1);
 $city = $_POST['city'];
 $city = strtolower($city);
@@ -227,9 +221,7 @@ if ($result->num_rows > 0)
         //grab URL and pass it to the variable.
         curl_setopt($ch, CURLOPT_URL, $url);
 
-        $res = curl_exec($ch);
-
-        $decoded_data = json_decode($res);
+      
 
         //table elements
         $age_groups = $row["age_groups"];
@@ -272,6 +264,9 @@ if ($result->num_rows > 0)
             if (($age == NULL || $age == $age_groups) && ($inArea || $isEmpty))
 
             {
+              $res = curl_exec($ch);
+
+              $decoded_data = json_decode($res);
                 $hasResult = 1;
 
                 echo '<div class="result-module">' . "$decoded_data->html" .
@@ -387,6 +382,7 @@ $conn->close();
                 <a href="https://github.com/ahmedwab">Ahmed Abdelfattah</a></p>
                 <p>Special Thanks to:
                 <a href="http://vaccineupdates.ca">http://vaccineupdates.ca</a></p>
+                <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
             </section>
         </section>
