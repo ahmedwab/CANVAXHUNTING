@@ -28,7 +28,7 @@
       document.getElementById("age").value = e.innerText;
       handleCloseDropdown("dropdown-list-age");
     }
-    const handleOpenDropdown=(id)=>{
+    const handleOpenDropdown=(id)=>{D
       const ele = document.getElementById(id);
       ele.classList.add("dropdown-open");
     }
@@ -36,18 +36,6 @@
       const ele = document.getElementById(id);
       ele.classList.remove("dropdown-open");
     }
-    // document.getElementById("search-form").addEventListener("click", function(e){
-    //   e.preventDefault();
-    // });
-    
-    const submit =(e)=>{
-      
-      document.forms['search-form'].submit()
-      e.preventDefault();
-      e.preventDefault();
-      document.getElementById("age").value="12";
-    }
-    
 </script>
   <body>
     <section class="section-1">
@@ -59,7 +47,7 @@
           id="logo"
         />
         <h1>Canada Vaccine Search</h1>
-        <form class="form-control form-control-row"  action="" method="post" name='search-form' id='search-form'>
+        <form class="form-control form-control-row"  action="" method="post" name='search-form'>
           <div class="input-field-container">
             <h5 class="title">Province or territory</h5>
             <div class="dropdown input-container-input" onmouseover="handleOpenDropdown('dropdown-list-province')" onmouseout="handleCloseDropdown('dropdown-list-province')">
@@ -108,7 +96,7 @@
             </div>
           </div>
           <div class="input-field-container">
-            <div class="btn" onClick="submit(event)">
+            <div class="btn" onClick="document.forms['search-form'].submit();">
               <i class="fa fa-search"></i>
               <span class="btn-label">Search</span>
             </div>

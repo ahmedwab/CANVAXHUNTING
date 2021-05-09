@@ -45,10 +45,9 @@
 
   gtag('config', 'G-JHJ9Q588ND');
 </script>
+
   <script>
-      var p = 'MB';
-    
-      document.getElementById("province-label").innerText = p;
+     
     const getProvinces = (e) =>{
       document.getElementById("province-label").innerText = e.innerText;
       document.getElementById("province").value = e.innerText;
@@ -67,6 +66,27 @@
       const ele = document.getElementById(id);
       ele.classList.remove("dropdown-open");
     }
+
+    // Add all the field values here after post request
+    document.addEventListener('DOMContentLoaded', (event) => {
+      var p = 'MB';
+      if(p){
+          document.getElementById("province-label").innerText =p;
+        }
+      var age = '24+';
+      if(age){
+          document.getElementById("age-label").innerText =age;
+        }
+      var city= 'Missisauga';
+      if(city){
+          document.getElementById("city").innerText =city;
+        }
+      var postalCode = 'M3B';
+      if(postalCode){
+          document.getElementById("postalCode").innerText =postalCode;
+        }
+  })
+
 </script>
   <body>
     <section class="section-1">
