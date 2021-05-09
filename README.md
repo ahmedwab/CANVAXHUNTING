@@ -9,7 +9,7 @@ http://canvaxsearch.com
 
 
 
-<img src="images/Cv.png"  title="website">
+<img src="images/Cv.jpg"  title="website">
 
 
 
