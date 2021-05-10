@@ -199,7 +199,7 @@ echo '
     <section class="section-2">
       <div class="container">';
 
-      echo $city;
+     
 
 $count = 0;
 if ($result->num_rows > 0)
