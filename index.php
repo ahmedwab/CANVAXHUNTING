@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="ISO-8859-1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Primary Meta Tags -->
@@ -189,8 +189,7 @@ $conn = new mysqli($servername, $username, $password, $databaseName);
 
 $sql = "SELECT * FROM tweet 
  WHERE province ='$province'
- ORDER BY created_at DESC
- LIMIT 600";
+ ORDER BY created_at DESC";
 
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -199,6 +198,8 @@ $result = $stmt->get_result();
 echo '
     <section class="section-2">
       <div class="container">';
+
+      echo $city;
 
 $count = 0;
 if ($result->num_rows > 0)
@@ -241,9 +242,12 @@ if ($result->num_rows > 0)
         {
             $inCity = 1;
         }
-
+        $hasPostal=0;
         //table elements
         $FSAs = $row["FSAs"];
+        if(strlen($FSAs)>=1){
+          $hasPostal=1;
+      }
         $FSAs = substr($FSAs, 1, -1);
         $FSAs = explode(',', $FSAs);
 
@@ -257,8 +261,10 @@ if ($result->num_rows > 0)
             $inPostal = 1;
         }
 
-        $inArea = $inCity || $inPostal;
+        $inArea = (($inCity&&$inPostal) || ($hasPostal==0 && $inCity));
         $isEmpty = $city == '\'\'' && $postalcode == '\'\'';
+
+       
         if ($count < 20)
         {
             if (($age == NULL || $age == $age_groups) && ($inArea || $isEmpty))
@@ -381,7 +387,7 @@ $conn->close();
                 &
                 <a href="https://github.com/ahmedwab">Ahmed Abdelfattah</a></p>
                 <p>Special Thanks to:
-                <a href="http://vaccineupdates.ca">http://vaccineupdates.ca</a></p>
+                <a href="http://vaccineupdates.ca">http://vaccineupdates.ca</a>, <a href="https://twitter.com/VaxHuntersCan">@VaxHuntersCan</a></p>
                 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
             </section>

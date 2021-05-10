@@ -1,6 +1,4 @@
-<html>
-<body>
-Emails:
+
 <?php
 // mailing system
 
@@ -32,6 +30,8 @@ while ($row = $result->fetch_assoc())
     $lastmail = $row["DATE"];
 
 }
+
+echo $lastmail;
 $sql = "SELECT * FROM tweet 
     WHERE ingested_at > '$lastmail'
     ORDER BY ingested_at DESC ";
@@ -53,8 +53,12 @@ while ($row = $result->fetch_assoc())
 
     $cities = array_map('strtolower', $cities);
 
+    $hasPostal=0;
     //table elements
     $FSAs = $row["FSAs"];
+    if(strlen($FSAs)>=1){
+        $hasPostal=1;
+    }
     $FSAs = substr($FSAs, 1, -1);
     $FSAs = explode(',', $FSAs);
 
@@ -90,7 +94,7 @@ while ($row = $result->fetch_assoc())
         $postalcode = strtolower($postalcode);
 
         $count = $row2['COUNT'];
-
+        
         $inPostal = 0;
 
         $postalcode2 = ' ' . $postalcode;
@@ -107,8 +111,10 @@ while ($row = $result->fetch_assoc())
             $inCity = 1;
         }
 
-        if ($inCity || $inPostal && $count <= 2)
+        
+        if ((($inCity&&$inPostal) || ($hasPostal==0 && $inCity)) && $count < 2)
         {
+           
 
             $subject = "We found Vaccines for you";
             $to = $email;
@@ -131,7 +137,7 @@ while ($row = $result->fetch_assoc())
 
             // More headers
             // Sender should probably be a no-reply@something.com
-            $headers .= 'From: <no-reply@canvaxsearch.com>' . "\r\n";
+            $headers .= 'From: no-reply@canvaxsearch.com' . "\r\n";
 
             if (strlen($emailtext) > 10)
             {
@@ -139,12 +145,18 @@ while ($row = $result->fetch_assoc())
                 if ($wasMailed == true)
                 {
                     array_push($emailArray,$to);
+                    $mailcount=$count+1;
+                    $stmt3 = $conn->prepare("UPDATE EMAILS SET count ='$mailcount' WHERE EMAIL='$to'");
+                    
+
+                    $stmt3->execute();
                 }
                 else
                 {
                    // echo "No messages sent...";
                 }
             }
+           
 
         }
 
@@ -157,17 +169,18 @@ while ($row = $result->fetch_assoc())
         {
             echo "<h3> New Mailer has been added</h3>";
         }
+       
 
-        $stmt2 = $conn->prepare("UPDATE EMAILS SET count = 0");
-
-        $stmt2->execute();
+        
 
     }
 
 }
+        $stmt3 = $conn->prepare("UPDATE EMAILS SET count =0");
+                    
 
-print_r($emptyArray);
+        $stmt3->execute();
 
+//DELETE FROM `MAILER` WHERE ID>119
 ?>
-</body>
-</html>
+
