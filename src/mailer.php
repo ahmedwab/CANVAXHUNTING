@@ -4,10 +4,10 @@
 
 
 //database information
-$servername = "mysql.canvaxsearch.com";
-$username = "canvaxadmin";
-$password = "Cvs14072510";
-$databaseName = "canvaxdb";
+$servername = getenv('SERVERNAME');
+$username = getenv('USERNAME');
+$password = getenv('PASSWORD');
+$databaseName = getenv('DATABASENAME');
 
 $conn = new mysqli($servername, $username, $password, $databaseName);
 
