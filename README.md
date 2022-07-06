@@ -1,6 +1,6 @@
 
 #  CANVAXHUNTING
-<img  src="src/images/maple.jpg"  title="mapleleaf"/>
+<img  src="src/images/maple.png"  title="mapleleaf"/>
 
 Notification System for Canadian COVID vaccine availability. This project allowed those who were unable to obtain vaccines to search for availability based on their province, city, and age group filters.
 
@@ -25,5 +25,5 @@ http://canvaxsearch.com
 ## UML diagram
 
 You can visually see our UML diagram here on what a tweet displayed will carry as attributes .
-<img  src="src/database/uml.png"  title="uml"/>
+<img  src="database/uml.png"  title="uml"/>
 
